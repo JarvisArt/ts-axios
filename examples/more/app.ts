@@ -1,4 +1,4 @@
-import axios from '../../src/index'
+import axios, { AxiosError } from '../../src/index'
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 import { doesNotReject } from 'assert'
@@ -88,15 +88,33 @@ import { doesNotReject } from 'assert'
 //   }
 // })
 
-/* HTTP 授权 */
+/* HTTP授权 */
 
-axios.post('/more/post', {
-  a: 1
-}, {
-  auth: {
-    username: 'Yes',
-    password: '123456'
+// axios.post('/more/post', {
+//   a: 1
+// }, {
+//   auth: {
+//     username: 'Yes',
+//     password: '123456'
+//   }
+// }).then(res => {
+//   console.log(res)
+// })
+
+/* 自定义合法状态码 */
+
+axios.get('/more/304').then(res => {
+  console.log(res)
+}).catch((e: AxiosError) => {
+  console.log(e.message)
+})
+
+axios.get('/more/304', {
+  validateStatus(status) {
+    return status >= 200 && status < 400
   }
 }).then(res => {
   console.log(res)
+}).catch((e: AxiosError) => {
+  console.log(e.message)
 })
