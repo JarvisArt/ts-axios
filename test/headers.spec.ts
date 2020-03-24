@@ -67,8 +67,7 @@ describe('headers', () => {
     axios.post('/foo')
 
     return getAjaxRequest().then(request => {
-      // testHeaderValue(request.requestHeaders, 'Content-Type', undefined)
-      testHeaderValue(request.requestHeaders, 'Content-Type', 'application/x-www-form-urlencoded')
+      testHeaderValue(request.requestHeaders, 'Content-Type', undefined)
     })
   })
 
